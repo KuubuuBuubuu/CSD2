@@ -1,2 +1,2 @@
-username = input( “Hey, may I ask your name?” )
-print(“Hello”, username)
+username = input("What's your name? ")
+print( "Hello, " + username + "!")
