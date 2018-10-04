@@ -48,9 +48,11 @@ sa.WaveObject.from_wave_file("pythonExamples-master/audio/01_audioFiles/audioFil
 
 # define durationsToTimestamps16th
 def durationsToTimestamps16th(l1):
-    l1.pop(0)
     for value in l1:
-        timestamps16th.append(max(timestamps16th) + (value * 4))
+        if timestamps16th==[]:
+            timestamps16th.append(0)
+        else:
+            timestamps16th.append(max(timestamps16th) + (value * 4))
 
 # define timestampsin16th to timestampsintime
 def realTimeStamps(l1, int):
@@ -79,9 +81,10 @@ rep = int(input("How many times do you want your sequence to be repeated? "))
 # create a list to hold the timestamps
 timestamps = []
 # create a list for 16th notes with a starting position
-timestamps16th = [0]
+timestamps16th = []
 # create a list with ‘note timestamps' in 16th at which we should play the sample,
 print("Please fill in below, as many note durations as you'd like in your sequence.")
+print("NOTE: Minimum of 2 note durations.")
 str_arr = input().split(' ')
 noteDurations = [float(num) for num in str_arr]
 # call the convertion-to-16th function
