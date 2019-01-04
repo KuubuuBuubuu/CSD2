@@ -1,6 +1,6 @@
 CC = g++
-CFLAGS = -I/usr/local/include -Wall -std=c++1z
-LDFLAGS= -ljack
+CFLAGS = -Ic:/Program\ Files\ \(x86\)/Jack/includes -Wall -std=c++1z
+LDFLAGS= -Lc:/Program\ Files\ \(x86\)/Jack/lib -llibjack
 
 all: example
 
