@@ -5,6 +5,7 @@ SOURCE= jack_module.o MelodyGenerator.o main.o
 
 example: $(SOURCE)
 	$(CXX) -o $@ $(SOURCE) $(LDFLAGS)
+	rm -f *.gch *.o
 
 .cpp.o:
 	$(CXX) -c $(CXXFLAGS) $<
