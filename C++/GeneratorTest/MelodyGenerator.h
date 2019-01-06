@@ -4,37 +4,35 @@
 #include <vector>
 #include "math.h"
 
-using namespace std;
 
 class MelodyGenerator
 {
 public:
   //Constructor and destructor
-  MelodyGenerator(int bpm, int noteAmount, string root, string scale);
+  MelodyGenerator(int bpm, int noteAmount, std::string root, std::string scale);
   ~MelodyGenerator();
+
   int bpm;
   int noteAmount;
-  string root;
-  string scale;
-  vector<int> pitch = {};
-  vector<double> noteLength = {2};
-  vector<int> pitchList = {};
+  std::string root;
+  std::string scale;
+  std::vector<int> pitch = {};
+  std::vector<double> noteLength = {};
+  std::vector<int> pitchList = {};
+  int rootMidiValue;
+  int step; //position of where you are in the scale
+  int randomStep;
+  int randomLength;
 
-
-
- int rootMidiValue;
- int step = 2; //starting position; Start at chosen root.
- int randomStep = rand() %3 -1;
- int randomLength = rand() %3 +1;
-
-  //go to next note
+  // generate the melody:
   void generate();
 
-  void setRoot(string root);
 
 
 private:
-  float sixteenth = (60.0 / bpm) / 4.0;
+  // Not actually used:
+  // float sixteenth = (60.0 / bpm) / 4.0;
+  // float eighth = (60.0 / bpm) / 2.0;
 };
 
 #endif

@@ -4,14 +4,15 @@
 
 using namespace std;
 
+// Constructor and destructor
 MelodyGenerator::MelodyGenerator(int bpm, int noteAmount, string root, string scale) :
  bpm(bpm), noteAmount(noteAmount), root(root), scale(scale)
 {
-  cout << "\nInside MelodyGenerator(int bpm, int noteAmount, string root, string scale)"
-    << "\nbpm: " << bpm
-    << "\nnoteAmount: " << noteAmount
-    << "\nkey: " << root << " " << scale << "\n\n";
+  cout << "\nBPM: " << bpm
+    << "\nAmount of notes: " << noteAmount
+    << "\nKey: " << root << " " << scale << "\n\n";
 
+    // make your root a MIDI value:
     if(root == "a")
     {
       this->rootMidiValue = 57;
@@ -61,6 +62,7 @@ MelodyGenerator::MelodyGenerator(int bpm, int noteAmount, string root, string sc
       this->rootMidiValue = 68;
     }
 
+  // Set your pitchList to the chosen scale, from a third below to a sixth above the chosen root:
   if (scale=="major")
   {
     pitchList = {-3, -1, 0, 2, 4, 5, 7, 9};
@@ -69,32 +71,54 @@ MelodyGenerator::MelodyGenerator(int bpm, int noteAmount, string root, string sc
   {
     pitchList = {-4, -2, 0, 2, 3, 5, 7, 8};
   }
+  else if(scale=="phrygian")
+  {
+    pitchList = {-4, -2, 0, 1, 3, 5, 7, 8};
+  }
+  else if(scale=="lydian")
+  {
+    pitchList = {-3, -1, 0, 2, 4, 6, 7, 9};
+  }
+  else if(scale=="harmonic minor")
+  {
+    pitchList = {-4, -1, 0, 2, 3, 5, 7, 8};
+  }
+  else if(scale=="dorian#4")
+  {
+    pitchList = {-3, -2, 0, 2, 3, 6, 7, 9};
+  }
   else
   {
     cout << "...How about minor? :D\n\n";
     pitchList = {-4, -2, 0, 2, 3, 5, 7, 8};
   }
+
+  step = 2; //starting position in the vector; Start at chosen root.
+  randomStep = rand() %3 -1;
+  randomLength = rand() %3 +1;
 }
 
 MelodyGenerator::~MelodyGenerator()
 {
-  cout << "\nInside MelodyGenerator::~MelodyGenerator";
+
 }
 
 
-//go to next note
+// generate the melody:
 void MelodyGenerator::generate()
 {
+  // get random seed:
   srand(time(0));
 
+  // add initial pitch & length to the vectors:
   pitch.push_back(pitchList[step] + rootMidiValue);
+  noteLength.push_back(2);
 
-  for (int x=0; x <= (noteAmount-1); x++)
+  for (int x=1; x <= (noteAmount-1); x++)
   {
+    //decide next step:
     randomStep = rand() %3 -1;
     step += randomStep;
-
-
     if (step < 0)
     {
       step=1;
@@ -104,25 +128,19 @@ void MelodyGenerator::generate()
       step=6;
     }
 
+    // add new pitch according to step:
     pitch.push_back(pitchList[step] + rootMidiValue);
 
-
+    // decide length for the note:
     int randomLength = rand() %4 + 1;
     if(randomLength == 4)
     {
       randomLength=8;
     }
+
+    // add length to the noteLength vector:
     noteLength.push_back(randomLength);
 
+  } // ForLoop
 
-    //debugging
-    cout << "Pitch: " << pitch[x]
-    << "\nLength: " << noteLength[x] << "\n\n";
-  }
-}
-
-
-void MelodyGenerator::setRoot(string root)
-{
-
-}
+} //generate
