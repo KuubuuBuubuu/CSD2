@@ -4,7 +4,6 @@
 #include <vector>
 #include "math.h"
 
-
 class MelodyGenerator
 {
 public:
@@ -26,8 +25,6 @@ public:
 
   // generate the melody:
   void generate();
-
-
 
 private:
   // Not actually used:

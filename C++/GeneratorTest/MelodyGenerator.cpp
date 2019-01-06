@@ -103,7 +103,6 @@ MelodyGenerator::~MelodyGenerator()
 
 }
 
-
 // generate the melody:
 void MelodyGenerator::generate()
 {
@@ -140,7 +139,5 @@ void MelodyGenerator::generate()
 
     // add length to the noteLength vector:
     noteLength.push_back(randomLength);
-
   } // ForLoop
-
 } //generate

@@ -4,17 +4,8 @@
 #include "MelodyGenerator.h"
 
 using namespace std;
-/*
- * NOTE: jack2 needs to be installed
- * jackd invokes the JACK audio server daemon
- * https://github.com/jackaudio/jackaudio.github.com/wiki/jackd(1)
- * on mac, you can start the jack audio server daemon in the terminal:
- * jackd -d coreaudio
- */
 
-#define PI_2 6.28318530717959
-
-int main(int argc,char **argv)
+int main()
 {
   int q1;
   cout << "What's your bpm?\n";
