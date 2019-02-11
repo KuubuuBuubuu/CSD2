@@ -112,6 +112,7 @@ void MelodyGenerator::generate()
   // add initial pitch & length to the vectors:
   pitch.push_back(pitchList[step] + rootMidiValue);
   noteLength.push_back(2);
+  cout << "Pitch: " << pitch[0] << "\nLength: " << noteLength[0];
 
   for (int x=1; x <= (noteAmount-1); x++)
   {
@@ -139,5 +140,7 @@ void MelodyGenerator::generate()
 
     // add length to the noteLength vector:
     noteLength.push_back(randomLength);
+
+    cout << "\n\nPitch: " << pitch[x] << "\nLength: " << noteLength[x];
   } // ForLoop
 } //generate
