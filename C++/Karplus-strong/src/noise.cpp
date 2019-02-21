@@ -19,7 +19,7 @@ Noise::~Noise()
 void Noise::calculate()
 {
     // calculate sample
-    sample = (rand() % 1000) / 1000;
+    sample = rand() % 1000 / 1000.0;
 }
 
 //||CC||

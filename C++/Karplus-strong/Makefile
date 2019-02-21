@@ -5,7 +5,7 @@
 CC := g++
 SRCDIR := src
 BUILDDIR := build
-TARGET := bin/TapeEcho
+TARGET := bin/Karplus-Strong
 
 SRCEXT := cpp
 SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
