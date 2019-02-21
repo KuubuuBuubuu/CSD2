@@ -1,87 +1,64 @@
 #include <iostream>
+#include <string>
+#include <conio.h>
+#include <windows.h>
+#include <vector>
+#include <fstream>
 #include <thread>
-#include "jack_module.h"
 
+#include "../include/jack_module.h"
+#include "../include/noise.h"
 
-/*
- * NOTE: jack2 needs to be installed
- * jackd invokes the JACK audio server daemon
- * https://github.com/jackaudio/jackaudio.github.com/wiki/jackd(1)
- * on mac, you can start the jack audio server daemon in the terminal:
- * jackd -d coreaudio
- */
+//Auto_execute
+//cd ..; make; cd bin; ./Karplus-Strong.exe
 
 #define PI_2 6.28318530717959
 
-int main(int argc,char **argv)
+using namespace std;
+
+int main(int argc, char **argv)
 {
-  std::cout << "Please tell me what you want the de
-  // create a JackModule instance
+  //Create a JackModule instance
   JackModule jack;
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //~~~~~~~~~~~JACK~~~~~~~~~~~
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // init the jack, use program name as JACK client name
-  jack.init(argv[0]);
+  jack.init("example.exe");
   double samplerate = jack.getSamplerate();
 
-  // create sine wave
-  Sine sine(samplerate, 220);
-  Square square(samplerate, 220);
-  Saw saw(samplerate, 220);
-  Oscillator* osc = &sine;
-  Oscillator* osc2 = &sine;
+  Noise noise(samplerate, 3000);
+
+  Oscillator *oscillator = &noise;
+
   //assign a function to the JackModule::onProces
-  jack.onProcess = [&osc, &osc2](jack_default_audio_sample_t *inBuf,
-     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
-
+  jack.onProcess = [&oscillator](jack_default_audio_sample_t *inBuf,
+                                 jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
     static double amplitude = 0.5;
-    static double amplitude2= 0.4;
-
-    for(unsigned int i = 0; i < nframes; i++) {
+    for (unsigned int i = 0; i < nframes; i++)
+    {
       // write sine output * amplitude --> to output buffer
-      outBuf[i] = amplitude * osc->getSample() + amplitude2 * osc2->getSample() ;
+      outBuf[i] = amplitude * oscillator->getSample();
       // calculate next sample
-      osc->tick();
-      osc2->tick();
+      oscillator->tick();
     }
-
     return 0;
   };
 
   jack.autoConnect();
 
-  //keep the program running and listen for user input, q = quit
   std::cout << "\n\nPress 'q' when you want to quit the program.\n";
   bool running = true;
   while (running)
   {
     switch (std::cin.get())
     {
-      case 'q':
-        running = false;
-        jack.end();
-        break;
-      case 'w':
-        osc = &sine;
-        std::cout << "w is pressed\n";
-        break;
-      case 'e':
-        osc = &square;
-        break;
-      case 'r':
-        osc = &saw;
-        break;
-      case 's':
-        osc2 = &sine;
-        break;
-      case 'd':
-        osc2 = &square;
-        break;
-      case 'f':
-        osc2 = &saw;
-        break;
+    case 'q':
+      running = false;
+      jack.end();
+      break;
     }
   }
-
-  //end the program
   return 0;
-} // main()
+}
