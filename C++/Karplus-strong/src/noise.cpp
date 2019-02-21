@@ -8,12 +8,12 @@ using namespace std;
 Noise::Noise(double samplerate, double frequency) : Oscillator(samplerate, frequency)
 {
     srand(time(NULL));
-    cout << "Created a sine" << endl;
+    cout << "Created a noise" << endl;
 }
 
 Noise::~Noise()
 {
-    cout << "Destructed a sine" << endl;
+    cout << "Destructed a noise" << endl;
 }
 
 void Noise::calculate()
