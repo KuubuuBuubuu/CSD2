@@ -13,6 +13,7 @@ public:
 
   // ovverride calculate method
   void calculate();
+
 };
 
 #endif

@@ -22,11 +22,15 @@ class Oscillator
     void setFrequency(double frequency);
     double getFrequency();
 
+    void setAmplitude(double amplitude);
+    double getAmplitude();
+
     //NOTE - do we need a setter for phase? for now -> not using one
 
   protected:
     double samplerate;
     double frequency;
+    double amplitude;
     double phase;
     double sample;
 };
