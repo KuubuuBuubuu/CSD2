@@ -28,7 +28,7 @@ int main(int argc, char **argv)
   jack.init("example.exe");
   double samplerate = jack.getSamplerate();
 
-  Noise noise(samplerate, 3000);
+  Noise noise(samplerate, 120);
 
   Oscillator *oscillator = &noise;
 
