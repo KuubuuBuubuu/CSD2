@@ -8,6 +8,7 @@
 
 #include "../include/jack_module.h"
 #include "../include/noise.h"
+#include "../include/delay.h"
 
 //Auto_execute
 //cd ..; make; cd bin; ./Karplus-Strong.exe
