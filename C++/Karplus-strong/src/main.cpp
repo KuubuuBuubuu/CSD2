@@ -24,7 +24,6 @@ int main(int argc, char **argv)
   //~~~~~~~~~~~JACK~~~~~~~~~~~
   //~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
   // init the jack, use program name as JACK client name
   jack.init("example.exe");
   double samplerate = jack.getSamplerate();
@@ -55,19 +54,22 @@ int main(int argc, char **argv)
   while (running)
   {
     if (GetAsyncKeyState(VK_SPACE) < 0 && isPressed == false)
-        {
-          for(unsigned int i = 0; i < 5000000; i++) {
-            oscillator->setAmplitude(1.0);
-          }
-          isPressed = true;
-          oscillator->setAmplitude(0.0);
-        }
-    else if(GetAsyncKeyState(VK_SPACE) == 0 && isPressed == true) {
+    {
+      for (unsigned int i = 0; i < 500000000; i++)
+      {
+        oscillator->setAmplitude(1.0);
+      }
+      isPressed = true;
+      oscillator->setAmplitude(0.0);
+    }
+    else if (GetAsyncKeyState(VK_SPACE) == 0 && isPressed == true)
+    {
       isPressed = false;
     }
 
-    if(GetKeyState('Q') & 0x8000) {
-      running=false;
+    if (GetKeyState('Q') & 0x8000)
+    {
+      running = false;
       jack.end();
     }
   }
