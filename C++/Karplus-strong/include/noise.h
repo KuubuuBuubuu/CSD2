@@ -15,7 +15,7 @@ public:
   ~Noise();
 
   // ovverride calculate method
-  vector<float> sample_buffer;
+  vector<double> sample_buffer;
   void calculate();
   float r;
   float newSample;

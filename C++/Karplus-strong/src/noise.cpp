@@ -8,7 +8,7 @@ using namespace std;
 Noise::Noise(double samplerate, double frequency) : Oscillator(samplerate, frequency)
 {
     srand(time(NULL));
-    for (int i = 0; i < 130; i++)
+    for (int i = 0; i < 88; i++)
     {
         r = rand() % 1000 / 1000.0;
         sample_buffer.push_back(r);
@@ -16,7 +16,7 @@ Noise::Noise(double samplerate, double frequency) : Oscillator(samplerate, frequ
     cout << sample_buffer.size() << endl;
     ;
     samplesTillDelay = samplerate / 1000;
-    lowpassfilter = new Filter(LPF, (samplerate / 2) / cutoff_frequency, samplerate, cutoff_frequency);
+    lowpassfilter = new Filter(LPF, samplerate / cutoff_frequency, samplerate, cutoff_frequency);
     cout << "Created a noise" << endl;
 }
 
