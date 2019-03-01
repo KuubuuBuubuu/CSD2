@@ -21,9 +21,11 @@ public:
   float newSample;
   Filter *lowpassfilter;
   float delayedSample = 0.0;
-  double feedback = 0.9999999;
+  double feedback = 0.99;
   float samplesTillDelay;
   double samplePos = 0.0;
+  float cutoff_frequency = 10000;
+  int delayTime = 100;
 };
 
 #endif

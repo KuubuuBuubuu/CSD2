@@ -8,13 +8,15 @@ using namespace std;
 Noise::Noise(double samplerate, double frequency) : Oscillator(samplerate, frequency)
 {
     srand(time(NULL));
-    for (int i = 0; i < 128; i++)
+    for (int i = 0; i < 130; i++)
     {
         r = rand() % 1000 / 1000.0;
         sample_buffer.push_back(r);
     }
+    cout << sample_buffer.size() << endl;
+    ;
     samplesTillDelay = samplerate / 1000;
-    lowpassfilter = new Filter(LPF, 51, 44100, 5000);
+    lowpassfilter = new Filter(LPF, (samplerate / 2) / cutoff_frequency, samplerate, cutoff_frequency);
     cout << "Created a noise" << endl;
 }
 
@@ -32,18 +34,15 @@ void Noise::calculate()
     }
     else
     {
-        newSample = delayedSample;
+        newSample = 0;
     }
 
-    sample = newSample + delayedSample;
-    delayedSample = sample;
-    delayedSample = lowpassfilter->do_sample(delayedSample);
-    if (samplePos >= samplesTillDelay)
+    sample = newSample;
+    if (sample > 0.01)
     {
-        delayedSample *= feedback;
-        samplePos = 0.0;
+        delayedSample = lowpassfilter->do_sample(newSample);
+        sample_buffer.push_back(delayedSample);
     }
-    samplePos += 1.0;
 }
 
 //||CC||
