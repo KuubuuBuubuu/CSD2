@@ -2,52 +2,44 @@
 using namespace std;
 
 //Constructor
-Delay::Delay(double feedback, int delayLength, double *input, int inputLength, float cutoff_frequency, double samplerate) //Get the samples from Jack
+Delay::Delay(double feedback, int delayLength, double *input, int inputLength, double cutoff_frequency, double samplerate) //Get the samples from Jack
     : delayArray(new double[inputLength])
 {
-    this->delayLength = delayLength;
-    this->feedback = feedback;
-    this->cutoff_frequency = cutoff_frequency;
-    this->samplerate = samplerate;
-    this->inputLength = inputLength;
-    for (int i = 0; i < inputLength; i++)
-    {
-        delayArray[i] = input[i]; //Prepare the first input
-    }
-    lowpassfilter = new Filter(LPF, samplerate / cutoff_frequency, samplerate, cutoff_frequency); //Initiate the LPF
-    cout << "Delay constructed." << endl;
+  cout << "Delay constructed." << endl;
+  this->delayLength = delayLength;
+  this->feedback = feedback;
+  this->cutoff_frequency = cutoff_frequency;
+  this->samplerate = samplerate;
+  this->inputLength = inputLength;
+  for (int i = 0; i < inputLength; i++)
+  {
+    delayArray[i] = input[i]; //Prepare the first input
+  }
+  lowpassfilter = new Filter(LPF, samplerate / cutoff_frequency, samplerate, cutoff_frequency); //Initiate the LPF
 }
 
 Delay::~Delay()
 {
-    delete delayArray;
-    delete lowpassfilter;
-    cout << "Delay deconstructed." << endl;
+  delete delayArray;
+  delete lowpassfilter;
+  cout << "Delay deconstructed." << endl;
 }
 
 double Delay::getSample(int index) //Get the nframes from Jack
 {
-    iMod = index % inputLength;
-    if (index >= delayLength)
+  iMod = index % inputLength;
+  if (index >= delayLength)
+  {
+    if (delayLength == inputLength)
     {
-        if (delayLength == inputLength)
-        {
-            delayArray[iMod] = lowpassfilter->do_sample(delayArray[iMod]) * feedback;
-        }
-        else
-        {
-            delayArray[iMod] = lowpassfilter->do_sample((delayArray[iMod] + delayArray[(((iMod - delayLength) % inputLength) + inputLength) % 5])) * feedback; //Lowpass here
-        }
-        if (delayArray[iMod] < 1.0 / 4294967296.0)
-        {
-            delayArray[iMod] = 0;
-        }
-        return delayArray[iMod];
+      delayArray[iMod] = lowpassfilter->do_sample(delayArray[iMod]) * feedback;
     }
     else
     {
-        return delayArray[iMod];
+      delayArray[iMod] = lowpassfilter->do_sample((delayArray[iMod] + delayArray[(((index - delayLength) % inputLength) + inputLength) % 5])) * feedback; //Lowpass here
     }
+  }
+  return delayArray[iMod];
 }
 
 /*

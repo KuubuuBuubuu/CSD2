@@ -28,8 +28,12 @@ int main(int argc, char **argv)
   jack.init("example.exe");
   double samplerate = jack.getSamplerate();
 
-  Karplusstrong karplusstrong(44, 44, 1000, samplerate, 0.99);
+  Karplusstrong karplusstrong(10, 10, 8000, samplerate, 0.95);
 
+  // for (int i = 0; i < 200; i++)
+  // {
+  //   cout << "index " << i << ": " << karplusstrong.getSample(i) << endl;
+  // }
   //assign a function to the JackModule::onProces
   jack.onProcess = [&karplusstrong](jack_default_audio_sample_t *inBuf,
                                     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
@@ -37,7 +41,8 @@ int main(int argc, char **argv)
     for (unsigned int i = 0; i < nframes; i++)
     {
       // write sine output * amplitude --> to output buffer
-      outBuf[i] = amplitude * karplusstrong.getSample(nframes);
+      outBuf[i] = amplitude * karplusstrong.getSample();
+      karplusstrong.moveIndex();
     }
     return 0;
   };

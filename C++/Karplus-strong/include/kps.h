@@ -7,17 +7,19 @@ using namespace std;
 
 class Karplusstrong
 {
-  public:
-    Karplusstrong(int inputLength, int delayLength, float cutoff_frequency, double samplerate, double feedback);
-    ~Karplusstrong();
+public:
+  Karplusstrong(int inputLength, int delayLength, double cutoff_frequency, double samplerate, double feedback);
+  ~Karplusstrong();
 
-    double getSample(int index);
+  double getSample();
+  void moveIndex();
 
-  private:
-    int inputLength;
-    double *noiseArray;
-    Oscillator *noiseptr;
-    Delay *delayptr;
+private:
+  int inputLength;
+  double *noiseArray;
+  Noise *noiseptr;
+  Delay *delayptr;
+  int indexNumber = 0;
 };
 
 #endif
