@@ -28,7 +28,7 @@ int main(int argc, char **argv)
   jack.init("example.exe");
   double samplerate = jack.getSamplerate();
 
-  Karplusstrong karplusstrong(10, 10, 8000, samplerate, 0.95); //Initiate the Karplusstrong, see 'kps.h' for more info
+  Karplusstrong karplusstrong(5, 5, 5000, samplerate, 0.99999999); //Initiate the Karplusstrong, see 'kps.h' for more info
 
   jack.onProcess = [&karplusstrong](jack_default_audio_sample_t *inBuf,
                                     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
