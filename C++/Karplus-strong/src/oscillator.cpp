@@ -6,7 +6,7 @@ using namespace std;
 // Constructor and destructor
 Oscillator::Oscillator(double samplerate, double frequency) : samplerate(samplerate), frequency(frequency), phase(0), sample(0)
 {
-  amplitude = 0.0;
+    amplitude = 0.0;
 }
 
 Oscillator::~Oscillator()
@@ -47,11 +47,13 @@ double Oscillator::getFrequency()
     return frequency;
 }
 
-void Oscillator::setAmplitude(double amplitude) {
-  this->amplitude = amplitude;
+void Oscillator::setAmplitude(double amplitude)
+{
+    this->amplitude = amplitude;
 }
 
-double Oscillator::getAmplitude() {
-  return amplitude;
+double Oscillator::getAmplitude()
+{
+    return amplitude;
 }
 //||CC||

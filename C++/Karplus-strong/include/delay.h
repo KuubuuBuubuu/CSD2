@@ -1,17 +1,25 @@
-#include <vector>
+#ifndef _DELAY_H_
+#define _DELAY_H_
 #include <iostream>
-#include "../include/oscillator.h"
+#include "filt.h"
+using namespace std;
 
 class Delay
 {
   public:
-    Delay(double feedback, int delayLength);
-    void write(int i, oscillator *o);
-    int read(int i); // set i to be sample_buffer size.
+    Delay(double feedback, int delayLength, double *input, int inputLength, float cutoff_frequency, double samplerate);
+    ~Delay();
+    double getSample(int index);
 
   private:
-    std::vector<double> delSamBuf[Oscillator::sample_buffer.size()];
+    double *delayArray;
+    int inputLength;
+    double samplerate;
+    float cutoff_frequency;
+    Filter *lowpassfilter;
     double feedback; // ratio between 0 and 1.
     int delayLength; //amount of samples delay.
     int iMod;        //modulo of the index.
-}
+};
+
+#endif
