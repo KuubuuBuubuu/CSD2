@@ -20,42 +20,13 @@ Delay::Delay(double feedback, int delayLength, double *input, int inputLength, d
 
 Delay::~Delay()
 {
-<<<<<<< HEAD
-  this->feedback = feedback;
-  this->delayLength = delayLength;
-  cout << "Delay constructed." << endl;
-=======
   delete delayArray;
   delete lowpassfilter;
   cout << "Delay deconstructed." << endl;
->>>>>>> delay
 }
 
 double Delay::getSample(int index)
 {
-<<<<<<< HEAD
-  iMod = i % delayLength;
-  cout << "Index " << i << " : ";
-  if (iMod == delayLength)
-  {
-    delSamBuf[iMod] = o->sample[i - delayLength] * feedback + delSamBuf[iMod] * feedback;
-    cout << delSamBuff[iMod] << " if " << endl;
-  }
-  else
-  {
-    b[iMod] = 0;
-    cout << b[iMod] << " else " << endl;
-  }
-  delSamBuf[i] = o->sample[i - delayLength];
-}
-}
-
-Delay::read(int i)
-{
-  // return the current sample.
-  return delSamBuf[i]
-}
-=======
   iMod = index % inputLength;
   if (index >= delayLength)
   {
@@ -70,4 +41,3 @@ Delay::read(int i)
   }
   return delayArray[iMod];
 }
->>>>>>> delay
