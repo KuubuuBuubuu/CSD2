@@ -4,7 +4,7 @@ using namespace std;
 //Constructor
 Karplusstrong::Karplusstrong(int inputLength, int delayLength, double cutoff_frequency, double samplerate, double feedback) //Get the samples from Jack
 {
-    inputLength = (samplerate / 1000) * inputLength;
+    inputLength = (samplerate / 1000) * inputLength; //Convert the input in ms to length in samples
     delayLength = (samplerate / 1000) * delayLength;
     noiseArray = new double[inputLength];
     this->inputLength = inputLength;

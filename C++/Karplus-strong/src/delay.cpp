@@ -25,7 +25,7 @@ Delay::~Delay()
   cout << "Delay deconstructed." << endl;
 }
 
-double Delay::getSample(int index) //Get the nframes from Jack
+double Delay::getSample(int index)
 {
   iMod = index % inputLength;
   if (index >= delayLength)
@@ -41,40 +41,3 @@ double Delay::getSample(int index) //Get the nframes from Jack
   }
   return delayArray[iMod];
 }
-
-/*
-int main()
-{   
-    srand(time(NULL));
-    double feedback = 0.99;
-    int iMod = 0;
-    int delaylength = 2;
-    int arrayLength = 3;
-    double a[arrayLength];
-    double b[arrayLength];
-    for(int i = 0; i < arrayLength; i++){
-        a[i] = rand() % 1000 / 1000.0;
-        b[i] = a[i];
-    }
-
-    for(int i = 0; i < 44100; i++){
-      iMod = i % arrayLength;
-      cout << "index " << iMod << ": ";
-      if(i >= delaylength){
-        if(delaylength == arrayLength){
-          b[iMod]*=feedback;
-        } else{
-            b[iMod] = (b[iMod] + b[(((iMod-delaylength) % arrayLength) + arrayLength) % 5]) * feedback;
-          }
-        if(b[iMod] < 1.0/4294967296.0){
-            b[iMod] = 0;
-          }
-        cout<<b[iMod]<<endl;
-      } else {
-        cout << a[iMod] << " input Vals " << endl;
-      }
-    }
-    
-    return 0;
-}
-*/
