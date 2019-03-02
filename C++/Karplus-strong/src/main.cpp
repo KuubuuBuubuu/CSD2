@@ -7,7 +7,7 @@
 #include <thread>
 
 #include "../include/jack_module.h"
-#include "../include/noise.h"
+#include "../include/kps.h"
 
 //Auto_execute
 //cd ..; make; cd bin; ./Karplus-Strong.exe
@@ -28,20 +28,16 @@ int main(int argc, char **argv)
   jack.init("example.exe");
   double samplerate = jack.getSamplerate();
 
-  Noise noise(samplerate, 120);
+  Karplusstrong karplusstrong(5, 5, 5000, samplerate, 0.99999999); //Initiate the Karplusstrong, see 'kps.h' for more info
 
-  Oscillator *oscillator = &noise;
-
-  //assign a function to the JackModule::onProces
-  jack.onProcess = [&oscillator](jack_default_audio_sample_t *inBuf,
-                                 jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
+  jack.onProcess = [&karplusstrong](jack_default_audio_sample_t *inBuf,
+                                    jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
     static double amplitude = 0.5;
     for (unsigned int i = 0; i < nframes; i++)
     {
       // write sine output * amplitude --> to output buffer
-      outBuf[i] = amplitude * oscillator->getSample();
-      // calculate next sample
-      oscillator->tick();
+      outBuf[i] = amplitude * karplusstrong.getSample();
+      karplusstrong.moveIndex();
     }
     return 0;
   };
@@ -57,10 +53,10 @@ int main(int argc, char **argv)
     {
       for (unsigned int i = 0; i < 500000000; i++)
       {
-        oscillator->setAmplitude(1.0);
+        // oscillator->setAmplitude(1.0);
       }
       isPressed = true;
-      oscillator->setAmplitude(0.0);
+      // oscillator->setAmplitude(0.0);
     }
     else if (GetAsyncKeyState(VK_SPACE) == 0 && isPressed == true)
     {
