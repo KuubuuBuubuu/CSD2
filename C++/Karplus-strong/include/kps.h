@@ -54,7 +54,7 @@
 #define _KPS_H_
 #include <iostream>
 #include "noise.h"
-#include "delay.h"
+#include "filt.h"
 using namespace std;
 
 class Karplusstrong
@@ -68,10 +68,12 @@ public:
 
 private:
   int inputLength;
-  double *noiseArray;
+  double *outputArray;
   Noise *noiseptr;
-  Delay *delayptr;
+  Filter *lowpassfilter;
   int indexNumber = 0;
+  double feedback;
+  int iMod;
   double tapAmount;
 };
 
