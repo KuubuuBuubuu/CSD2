@@ -30,14 +30,14 @@ int main(int argc, char **argv)
 
   Karplusstrong karplusstrong(5, 5, 5000, samplerate, 0.95); //Initiate the Karplusstrong, see 'kps.h' for more info
 
-  ofstream file;
-  file.open("../doc/output.txt");
-  for (int i = 0; i < 44100; i++)
-  {
-    file << "Sample " << i << ": " << karplusstrong.getSample() << endl;
-    karplusstrong.moveIndex();
-  }
-  file.close();
+  // ofstream file;
+  // file.open("../doc/output.txt");
+  // for (int i = 0; i < 44100; i++)
+  // {
+  //   file << "Sample " << i << ": " << karplusstrong.getSample() << endl;
+  //   karplusstrong.moveIndex();
+  // }
+  // file.close();
 
   jack.onProcess = [&karplusstrong](jack_default_audio_sample_t *inBuf,
                                     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
@@ -45,8 +45,8 @@ int main(int argc, char **argv)
     for (unsigned int i = 0; i < nframes; i++)
     {
       // write sine output * amplitude --> to output buffer
-      outBuf[i] = amplitude * 0; //karplusstrong.getSample();
-      // karplusstrong.moveIndex();
+      outBuf[i] = amplitude * karplusstrong.getSample();
+      karplusstrong.moveIndex();
     }
     return 0;
   };

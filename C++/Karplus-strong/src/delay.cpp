@@ -32,11 +32,11 @@ double Delay::getSample(int index)
   {
     if (delayLength == inputLength)
     {
-      delayArray[iMod] = lowpassfilter->do_sample(delayArray[iMod]) * feedback;
+      delayArray[iMod] = delayArray[iMod] * feedback; //lowpassfilter->do_sample(delayArray[iMod]) * feedback;
     }
     else
     {
-      delayArray[iMod] = lowpassfilter->do_sample((delayArray[iMod] + delayArray[(((index - delayLength) % inputLength) + inputLength) % 5])) * feedback; //Lowpass here
+      delayArray[iMod] = (delayArray[iMod] + delayArray[(((index - delayLength) % inputLength) + inputLength) % 5]) * feedback; //lowpassfilter->do_sample((delayArray[iMod] + delayArray[(((index - delayLength) % inputLength) + inputLength) % 5])) * feedback; //Lowpass here
     }
   }
   // if (delayArray[iMod] > 0.95)
