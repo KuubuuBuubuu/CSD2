@@ -8,7 +8,7 @@ using namespace std;
 Noise::Noise(double samplerate, double frequency) : Oscillator(samplerate, frequency)
 {
     srand(time(NULL));
-    lowpassfilter = new Filter(LPF, samplerate / cutoff_frequency, samplerate, cutoff_frequency);
+    lowpassfilter = new Filter(LPF, 1, samplerate, 500);
     cout << "Created a noise" << endl;
 }
 
@@ -19,7 +19,7 @@ Noise::~Noise()
 
 void Noise::calculate()
 {
-    sample = lowpassfilter->do_sample(rand() % 1000.0 / 1000.0);
+    sample = lowpassfilter->do_sample(rand() % 1000 / 1000.0);
 }
 
 //||CC||
