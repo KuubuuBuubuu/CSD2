@@ -1,4 +1,5 @@
 #include "../include/kps.h"
+#include <math.h>
 using namespace std;
 
 //Constructor
@@ -14,8 +15,10 @@ Karplusstrong::Karplusstrong(int inputLength, int delayLength, double cutoff_fre
         noiseArray[i] = noiseptr->getSample();
         noiseptr->tick();
     }
+    tapAmount = ((2.0/3.0) * log10(10^9)) * (samplerate / cutoff_frequency);
+    cout << "tapAmount= " << tapAmount << endl;
+    delayptr = new Delay(feedback, delayLength, noiseArray, inputLength, cutoff_frequency, samplerate, tapAmount);
 
-    delayptr = new Delay(feedback, delayLength, noiseArray, inputLength, cutoff_frequency, samplerate);
 }
 
 Karplusstrong::~Karplusstrong()

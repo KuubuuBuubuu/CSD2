@@ -7,7 +7,7 @@
 
   USAGE:
   Invoke and object of Karplusstrong. One constructor is available.
-  
+
   The constructor:
   Karplusstrong(int inputLength, int delayLength, double cutoff_frequency, double samplerate, double feedback)
 
@@ -22,12 +22,12 @@
 
   Once the kps is created getSample() can be called from the main program.
   In this function the program can request each sample from the kps according to the indexNumber.
-  Every time getSample is called moveIndex() needs to be called right after to move the 
+  Every time getSample is called moveIndex() needs to be called right after to move the
   read head of the circular buffer.
 
   An example of the main program will look like this:
 
-  int main() { 
+  int main() {
     Karplusstrong karplusstrong(5, 5, 5000, 44100, 0.99);
 
     while(data_needs_to_run){
@@ -66,12 +66,14 @@ public:
   double getSample();
   void moveIndex();
 
+
 private:
   int inputLength;
   double *noiseArray;
   Noise *noiseptr;
   Delay *delayptr;
   int indexNumber = 0;
+  double tapAmount;
 };
 
 #endif

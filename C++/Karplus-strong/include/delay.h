@@ -7,7 +7,7 @@
 
   USAGE:
   Invoke and object of Delay. One constructor is available.
-  
+
   The constructor:
   Delay(double feedback, int delayLength, double *input, int inputLength, double cutoff_frequency, double samplerate);
 
@@ -28,7 +28,7 @@
 
   An example of the main program will look like this:
 
-  int main() { 
+  int main() {
     Delay delay(feedback, delayLength, inputArray, inputLength, cutoff_frequency, samplerate);
 
     while(data_needs_to_run){
@@ -65,7 +65,7 @@ using namespace std;
 class Delay
 {
 public:
-  Delay(double feedback, int delayLength, double *input, int inputLength, double cutoff_frequency, double samplerate);
+  Delay(double feedback, int delayLength, double *input, int inputLength, double cutoff_frequency, double samplerate, double tapAmount);
   ~Delay();
   double getSample(int index);
 
@@ -78,6 +78,7 @@ private:
   double feedback;
   int delayLength;
   int iMod;
+  double tapAmount;
 };
 
 #endif
