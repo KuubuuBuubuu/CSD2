@@ -18,6 +18,8 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+  int length;
+  cin >> length;
   //Create a JackModule instance
   JackModule jack;
   //~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,7 +30,7 @@ int main(int argc, char **argv)
   jack.init("example.exe");
   double samplerate = jack.getSamplerate();
 
-  Karplusstrong karplusstrong(2, 9000, samplerate, 0.98); //Initiate the Karplusstrong, see 'kps.h' for more info
+  Karplusstrong karplusstrong(length, 9000, samplerate, 0.98); //Initiate the Karplusstrong, see 'kps.h' for more info
 
   // ofstream file;
   // file.open("../doc/output.txt");
