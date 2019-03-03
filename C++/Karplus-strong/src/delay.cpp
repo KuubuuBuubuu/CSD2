@@ -11,7 +11,7 @@ Delay::Delay(double feedback, int delayLength, double *input, int inputLength, d
   this->cutoff_frequency = cutoff_frequency;
   this->samplerate = samplerate;
   this->inputLength = inputLength;
-  this->tapAmount	= tapAmount;
+  this->tapAmount = tapAmount;
   for (int i = 0; i < inputLength; i++)
   {
     delayArray[i] = input[i]; //Prepare the first input
@@ -33,7 +33,7 @@ double Delay::getSample(int index)
   {
     if (delayLength == inputLength)
     {
-      delayArray[iMod] =  lowpassfilter->do_sample(delayArray[iMod]) * feedback; //delayArray[iMod] * feedback;
+      delayArray[iMod] = lowpassfilter->do_sample(delayArray[iMod]) * feedback; //delayArray[iMod] * feedback;
     }
     else
     {

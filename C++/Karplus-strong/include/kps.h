@@ -60,12 +60,11 @@ using namespace std;
 class Karplusstrong
 {
 public:
-  Karplusstrong(int inputLength, int delayLength, double cutoff_frequency, double samplerate, double feedback);
+  Karplusstrong(int inputLength, double cutoff_frequency, double samplerate, double feedback);
   ~Karplusstrong();
 
   double getSample();
   void moveIndex();
-
 
 private:
   int inputLength;

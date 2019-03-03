@@ -3,10 +3,10 @@
 using namespace std;
 
 //Constructor
-Karplusstrong::Karplusstrong(int inputLength, int delayLength, double cutoff_frequency, double samplerate, double feedback) //Get the samples from Jack
+Karplusstrong::Karplusstrong(int inputLength, double cutoff_frequency, double samplerate, double feedback) //Get the samples from Jack
 {
     inputLength = (samplerate / 1000) * inputLength; //Convert the input in ms to length in samples
-    delayLength = (samplerate / 1000) * delayLength;
+    delayLength = inputLength;
     noiseArray = new double[inputLength];
     this->inputLength = inputLength;
     noiseptr = new Noise(samplerate);
@@ -15,10 +15,9 @@ Karplusstrong::Karplusstrong(int inputLength, int delayLength, double cutoff_fre
         noiseArray[i] = noiseptr->getSample();
         noiseptr->tick();
     }
-    tapAmount = ((2.0/3.0) * log10(10^9)) * (samplerate / cutoff_frequency);
+    tapAmount = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / cutoff_frequency);
     cout << "tapAmount= " << tapAmount << endl;
     delayptr = new Delay(feedback, delayLength, noiseArray, inputLength, cutoff_frequency, samplerate, tapAmount);
-
 }
 
 Karplusstrong::~Karplusstrong()
