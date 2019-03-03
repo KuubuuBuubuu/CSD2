@@ -42,7 +42,7 @@ void Karplusstrong::generateNoise(int inputlength) {
 double Karplusstrong::getSample() {
   iMod = indexNumber % inputLength;
   if(indexNumber >= inputLength) {
-    outputArray[iMod] = lowpassfilter->do_sample(outputArray[iMod]) * feedback; //delayArray[iMod] * feedback;
+    outputArray[iMod] = lowpassfilter->do_sample(outputArray[iMod]) * feedback;
   } //if
   return outputArray[iMod];
 } //getSample
