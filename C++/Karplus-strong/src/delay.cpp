@@ -39,5 +39,9 @@ double Delay::getSample(int index)
       delayArray[iMod] = lowpassfilter->do_sample((delayArray[iMod] + delayArray[(((index - delayLength) % inputLength) + inputLength) % 5])) * feedback; //Lowpass here
     }
   }
+  // if (delayArray[iMod] > 0.95)
+  // {
+  //   cout << delayArray[iMod] << " // ";
+  // }
   return delayArray[iMod];
 }
