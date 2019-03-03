@@ -67,7 +67,9 @@ class Delay
 public:
   Delay(double feedback, int delayLength, double *input, int inputLength, double cutoff_frequency, double samplerate);
   ~Delay();
-  double getSample(int index);
+  void setSample(int index);
+
+  double getSample();
 
 private:
   double *delayArray;

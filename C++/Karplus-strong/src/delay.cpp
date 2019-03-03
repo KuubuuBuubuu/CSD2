@@ -25,7 +25,7 @@ Delay::~Delay()
   cout << "Delay deconstructed." << endl;
 }
 
-double Delay::getSample(int index)
+void Delay::setSample(int index)
 {
   iMod = index % inputLength;
   if (index >= delayLength)
@@ -39,9 +39,9 @@ double Delay::getSample(int index)
       delayArray[iMod] = (delayArray[iMod] + delayArray[(((index - delayLength) % inputLength) + inputLength) % 5]) * feedback; //lowpassfilter->do_sample((delayArray[iMod] + delayArray[(((index - delayLength) % inputLength) + inputLength) % 5])) * feedback; //Lowpass here
     }
   }
-  // if (delayArray[iMod] > 0.95)
-  // {
-  //   cout << delayArray[iMod] << " // ";
-  // }
+}
+
+double Delay::getSample()
+{
   return delayArray[iMod];
 }
