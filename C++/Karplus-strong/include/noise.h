@@ -1,7 +1,6 @@
 #ifndef _NOISE_H_
 #define _NOISE_H_
 #include "oscillator.h"
-#include <vector>
 #include "filt.h"
 using namespace std;
 
@@ -14,18 +13,9 @@ public:
   Noise(double samplerate, double frequency);
   ~Noise();
 
-  // ovverride calculate method
-  vector<double> sample_buffer;
   void calculate();
-  float r;
-  float newSample;
   Filter *lowpassfilter;
-  float delayedSample = 0.0;
-  double feedback = 0.99;
-  float samplesTillDelay;
-  double samplePos = 0.0;
-  float cutoff_frequency = 10000;
-  int delayTime = 100;
+  float cutoff_frequency = 5000;
 };
 
 #endif
