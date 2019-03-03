@@ -30,7 +30,7 @@ int main(int argc, char **argv)
   jack.init("example.exe");
   double samplerate = jack.getSamplerate();
 
-  Karplusstrong karplusstrong(length, 9000, samplerate, 0.98); //Initiate the Karplusstrong, see 'kps.h' for more info
+  Karplusstrong karplusstrong(length, 5000, samplerate, 0.95); //Initiate the Karplusstrong, see 'kps.h' for more info
 
   // ofstream file;
   // file.open("../doc/output.txt");
