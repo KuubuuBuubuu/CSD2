@@ -16,6 +16,7 @@ public:
   void calculate();
   Filter *lowpassfilter;
   float cutoff_frequency = 5000;
+  double prev_sample = 0;
 };
 
 #endif
