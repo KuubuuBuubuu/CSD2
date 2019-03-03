@@ -19,7 +19,7 @@ Noise::~Noise()
 
 void Noise::calculate()
 {
-    sample = lowpassfilter->do_sample(0.001);
+    sample = lowpassfilter->do_sample(rand() % 1000.0 / 1000.0);
 }
 
 //||CC||
