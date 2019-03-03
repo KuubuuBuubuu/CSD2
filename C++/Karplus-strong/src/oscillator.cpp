@@ -3,57 +3,50 @@ using namespace std;
 
 //~~CC~~
 
-// Constructor and destructor
-Oscillator::Oscillator(double samplerate, double frequency) : samplerate(samplerate), frequency(frequency), phase(0), sample(0)
-{
+Oscillator::Oscillator(double samplerate, double frequency) : samplerate(samplerate), frequency(frequency), phase(0), sample(0) {
     amplitude = 0.0;
-}
+} //constructor
 
-Oscillator::~Oscillator()
-{
+Oscillator::~Oscillator() {
     cout << "Desructed Oscillator" << endl;
-}
+} //destructor
 
-double Oscillator::getSample()
-{
+double Oscillator::getSample() {
     return sample;
-}
+} //getSample
 
-void Oscillator::tick()
-{
-    // increase phase
-    phase += frequency / samplerate;
-    // wrap phase from 0 to 1
-    if (phase >= 1)
-        phase = phase - 1;
+void Oscillator::tick() {
+  // increase phase
+  phase += frequency / samplerate;
 
-    // calculate new sample
-    calculate();
-}
+  // wrap phase from 0 to 1
+  if(phase >= 1) {
+    phase = phase - 1;
+  } //if
 
-void Oscillator::calculate()
-{
+  calculate();
+} //tick
+
+void Oscillator::calculate() {
     cout << ".";
-}
+} //calculate
 
-void Oscillator::setFrequency(double frequency)
-{
-    if (frequency > 0 && frequency < 0.5 * samplerate)
-        this->frequency = frequency;
-}
+void Oscillator::setFrequency(double frequency) {
+  if(frequency > 0 && frequency < 0.5 * samplerate) {
+    this->frequency = frequency;
+  } //if
+} //setFrequency
 
-double Oscillator::getFrequency()
-{
+double Oscillator::getFrequency() {
     return frequency;
-}
+} //getFrequency
 
-void Oscillator::setAmplitude(double amplitude)
-{
+void Oscillator::setAmplitude(double amplitude) {
     this->amplitude = amplitude;
-}
+} //setAmplitude
 
-double Oscillator::getAmplitude()
-{
+double Oscillator::getAmplitude() {
     return amplitude;
-}
+} //getAmplitude
+
 //||CC||
