@@ -8,6 +8,10 @@ Karplusstrong::Karplusstrong(int inputLength, double cutoff_frequency, double sa
   inputLength = (samplerate / 1000) * inputLength; //Convert the input in ms to length in samples
   outputArray = new double[inputLength];
   this->inputLength = inputLength;
+  if (feedback >= 0.99)
+  {
+    feedback = 0.98;
+  }
   this->feedback = feedback;
   noiseptr = new Noise(samplerate);
   for (int i = 0; i < inputLength; i++)
