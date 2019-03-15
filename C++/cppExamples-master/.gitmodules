@@ -1,0 +1,6 @@
+[submodule "puzzles/lesson_cpp_pointers"]
+	path = puzzles/cpp_pointers
+	url = https://github.com/ciskavriezenga/lesson_cpp_pointers.git
+[submodule "libs/octopus"]
+	path = libs/octopus
+	url = https://github.com/dsperados/octopus.git

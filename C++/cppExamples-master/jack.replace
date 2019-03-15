@@ -1,0 +1,8 @@
+cp ./course_content_2b/session5/example5_extra/jack_module.h ./08_audioExamples/01_usingJack/01_simpleSine/jack_module.h
+cp ./course_content_2b/session5/example5_extra/jack_module.h ./08_audioExamples/01_usingJack/02_oscillators/jack_module.h
+cp ./course_content_2b/session5/example5_extra/jack_module.h ./08_audioExamples/01_usingJack/04_simpleSynth/jack_module.h
+cp ./course_content_2b/session5/example5_extra/jack_module.h ./08_audioExamples/01_usingJack/05_synthInheritence/jack_module.h
+cp ./course_content_2b/session5/example5_extra/jack_module.h ./course_content_2b/session5/example1_sine/jack_module.h
+cp ./course_content_2b/session5/example5_extra/jack_module.h ./course_content_2b/session5/example2_oscillator/jack_module.h
+cp ./course_content_2b/session5/example5_extra/jack_module.h ./course_content_2b/session5/example3_polymorphism/jack_module.h
+cp ./course_content_2b/session5/example5_extra/jack_module.h ./course_content_2b/session5/example4_dynamic/jack_module.h
