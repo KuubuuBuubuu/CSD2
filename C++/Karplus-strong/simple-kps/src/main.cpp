@@ -7,6 +7,7 @@
 #include <vector>
 #include <fstream>
 #include <thread>
+#include <string>
 
 #include "../include/jack_module.h"
 #include "../include/kps.h"
@@ -16,8 +17,10 @@ using namespace std;
 int main(int argc, char **argv)
 {
   int length;
+  string fileLocation;
   cout << "Please fill in the length in ms of how long the array must be:" << endl;
   cin >> length;
+
   //Create a JackModule instance
   JackModule jack;
   //~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,7 +31,7 @@ int main(int argc, char **argv)
   jack.init("Karplus Strong [ALPHA]");
   double samplerate = jack.getSamplerate();
 
-  Karplusstrong karplusstrong(length, 5000, samplerate, 0.95); //Initiate the Karplusstrong, see 'kps.h' for more info
+  Karplusstrong karplusstrong(length, fileLocation, samplerate, 0.99); //Initiate the Karplusstrong, see 'kps.h' for more info
 
   jack.onProcess = [&karplusstrong](jack_default_audio_sample_t *inBuf,
                                     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {

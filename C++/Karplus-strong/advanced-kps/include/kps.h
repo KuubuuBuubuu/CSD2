@@ -53,6 +53,9 @@
 #ifndef _KPS_H_
 #define _KPS_H_
 #include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
 #include "noise.h"
 #include "filt.h"
 using namespace std;
@@ -61,6 +64,7 @@ class Karplusstrong
 {
 public:
   Karplusstrong(int inputLength, double cutoff_frequency, double samplerate, double feedback);
+  Karplusstrong(int inputLength, string fileLocation, double samplerate, double feedback);
   ~Karplusstrong();
 
   double getSample();
@@ -71,11 +75,13 @@ private:
   int inputLength;
   double *outputArray;
   Noise *noiseptr;
-  Filter *lowpassfilter;
+  vector<Filter*> filter;
   int indexNumber = 0;
   double feedback;
   int iMod;
   double tapAmount;
+  string fileInput;
+  ifstream inFile;
 };
 
 #endif
