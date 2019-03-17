@@ -28,7 +28,7 @@
   EXAMPLE CODE:
 ###########################################################
   int main() {
-    Karplusstrong karplusstrong(5, 5, 5000, 44100, 0.99);
+    Karplusstrong karplusstrong(5, 5000, 44100, 0.99);
 
     while(data_needs_to_run){
       cout << kps.getSample() << endl;
@@ -53,6 +53,7 @@
 #ifndef _KPS_H_
 #define _KPS_H_
 #include <iostream>
+#include <vector>
 #include "noise.h"
 #include "filt.h"
 using namespace std;
@@ -60,22 +61,24 @@ using namespace std;
 class Karplusstrong
 {
 public:
-  Karplusstrong(int inputLength, double cutoff_frequency, double samplerate, double feedback);
+  Karplusstrong(double inputLength, double cutoff_frequency, double samplerate, double feedback);
   ~Karplusstrong();
 
   double getSample();
-  void generateNoise(int inputLength);
+  double getOutputSize();
+  void generateNoise(double inputLength);
   void moveIndex();
 
 private:
-  int inputLength;
-  double *outputArray;
+  double inputLength;
+  vector<double> outputArray;
   Noise *noiseptr;
   Filter *lowpassfilter;
   int indexNumber = 0;
   double feedback;
   int iMod;
   double tapAmount;
+  double sampleRate;
 };
 
 #endif
