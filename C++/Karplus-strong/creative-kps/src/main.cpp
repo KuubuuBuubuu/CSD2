@@ -28,26 +28,21 @@ int main(int argc, char **argv)
   double samplerate = jack.getSamplerate();
   VoiceManager voice(6, samplerate, "c");
 
-  Karplusstrong kps1(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-  Karplusstrong kps2(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-  Karplusstrong kps3(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-  Karplusstrong kps4(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-  Karplusstrong kps5(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-  Karplusstrong kps6(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
+  //Karplusstrong kps1(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
+  //Karplusstrong kps2(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
+  //Karplusstrong kps3(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
+//  Karplusstrong kps4(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
+//  Karplusstrong kps5(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
+//  Karplusstrong kps6(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
 
-  jack.onProcess = [&kps1, &kps2, &kps3, &kps4, &kps5, &kps6](jack_default_audio_sample_t *inBuf,
+  jack.onProcess = [&voice](jack_default_audio_sample_t *inBuf,
                                     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
     static double amplitude = 0.9;
     for (unsigned int i = 0; i < nframes; i++)
     {
       // write sine output * amplitude --> to output buffer
-      outBuf[i] = amplitude * ((kps1.getSample() + kps2.getSample() + kps3.getSample() + kps4.getSample() + kps5.getSample() + kps6.getSample()) / 6);
-      kps1.moveIndex();
-      kps2.moveIndex();
-      kps3.moveIndex();
-      kps4.moveIndex();
-      kps5.moveIndex();
-      kps6.moveIndex();
+      outBuf[i] = amplitude * voice.getSamples();
+      voice.moveIndexes();
     }
     return 0;
   };
@@ -77,19 +72,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('Q') < 0 && isPressedq == false) {
       voice.addVoice();
       voice.setPitch(0);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressedq = true;
     }
     else if(GetAsyncKeyState('Q') == 0 && isPressedq == true) {
@@ -100,19 +83,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('2') < 0 && isPressed2 == false) {
       voice.addVoice();
       voice.setPitch(1);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressed2 = true;
     }
     else if(GetAsyncKeyState('2') == 0 && isPressed2 == true) {
@@ -124,19 +95,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('W') < 0 && isPressedw == false) {
       voice.addVoice();
       voice.setPitch(2);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressedw = true;
     }
     else if(GetAsyncKeyState('W') == 0 && isPressedw == true) {
@@ -149,19 +108,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('3') < 0 && isPressed3 == false) {
       voice.addVoice();
       voice.setPitch(3);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressed3 = true;
     }
     else if(GetAsyncKeyState('3') == 0 && isPressed3 == true) {
@@ -172,19 +119,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('E') < 0 && isPressede == false) {
       voice.addVoice();
       voice.setPitch(4);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressede = true;
     }
     else if(GetAsyncKeyState('E') == 0 && isPressede == true) {
@@ -196,19 +131,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('R') < 0 && isPressedr == false) {
       voice.addVoice();
       voice.setPitch(5);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressedr = true;
     }
     else if(GetAsyncKeyState('R') == 0 && isPressedr == true) {
@@ -220,19 +143,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('5') < 0 && isPressed5 == false) {
       voice.addVoice();
       voice.setPitch(6);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressed5 = true;
     }
     else if(GetAsyncKeyState('5') == 0 && isPressed5 == true) {
@@ -243,19 +154,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('T') < 0 && isPressedt == false) {
       voice.addVoice();
       voice.setPitch(7);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressedt = true;
     }
     else if(GetAsyncKeyState('T') == 0 && isPressedt == true) {
@@ -266,19 +165,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('6') < 0 && isPressed6 == false) {
       voice.addVoice();
       voice.setPitch(8);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressed6 = true;
     }
     else if(GetAsyncKeyState('6') == 0 && isPressed6 == true) {
@@ -289,19 +176,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('Y') < 0 && isPressedy == false) {
       voice.addVoice();
       voice.setPitch(9);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressedy = true;
     }
     else if(GetAsyncKeyState('Y') == 0 && isPressedy == true) {
@@ -312,19 +187,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('7') < 0 && isPressed7 == false) {
       voice.addVoice();
       voice.setPitch(10);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressed7 = true;
     }
     else if(GetAsyncKeyState('7') == 0 && isPressed7 == true) {
@@ -335,19 +198,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('U') < 0 && isPressedu == false) {
       voice.addVoice();
       voice.setPitch(11);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressedu = true;
     }
     else if(GetAsyncKeyState('U') == 0 && isPressedu == true) {
@@ -358,19 +209,7 @@ int main(int argc, char **argv)
     if(GetAsyncKeyState('I') < 0 && isPressedi == false) {
       voice.addVoice();
       voice.setPitch(12);
-      if(voice.getVoice() == 0) {
-      kps1.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 1) {
-      kps2.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 2) {
-      kps3.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 3) {
-      kps4.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 4) {
-      kps5.generateNoise(voice.getNoiseLength());
-    } else if(voice.getVoice() == 5) {
-      kps6.generateNoise(voice.getNoiseLength());
-    }
+      voice.generateNoise(voice.getVoice(), voice.getNoiseLength());
       isPressedi = true;
     }
     else if(GetAsyncKeyState('I') == 0 && isPressedi == true) {

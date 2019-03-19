@@ -6,6 +6,10 @@ using namespace std;
 VoiceManager::VoiceManager(int maxVoices, double samplerate, string root) {
   this->maxVoices = maxVoices;
   this->samplerate = samplerate;
+  kps.resize(maxVoices);
+  for(int i=0; i < maxVoices; i++) {
+    kps[i] = new Karplusstrong(220, 5000, samplerate, 0.98);
+  }
   voicePitch.resize(maxVoices);
   voiceLength.resize(maxVoices);
   if(root=="a") {
@@ -47,6 +51,9 @@ VoiceManager::VoiceManager(int maxVoices, double samplerate, string root) {
 }
 
 VoiceManager::~VoiceManager() {
+  for(int i = 0; i < maxVoices; i++) {
+    delete kps[i];
+  }
 }
 
 void VoiceManager::addVoice() {
@@ -57,6 +64,7 @@ void VoiceManager::addVoice() {
 void VoiceManager::removeVoice() {
   voice--;
   currentVoice = voice % maxVoices;
+
 }
 
 int VoiceManager::getVoice() {
@@ -74,4 +82,22 @@ double VoiceManager::getPitch() {
 
 double VoiceManager::getNoiseLength() {
   return voiceLength[currentVoice];
+}
+
+void VoiceManager::moveIndexes() {
+  for(int i=0; i < maxVoices; i++) {
+    kps[i]->moveIndex();
+  }
+}
+
+double VoiceManager::getSamples() {
+  double sample;
+  for(int i=0; i < maxVoices; i++) {
+    sample += kps[i]->getSample();
+  }
+  return sample = sample / maxVoices;
+}
+
+void VoiceManager::generateNoise(int voiceNum, double noiseLength) {
+  kps[voiceNum]->generateNoise(noiseLength);
 }

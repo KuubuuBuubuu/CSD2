@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "kps.h"
 
 using namespace std;
 
@@ -22,8 +23,9 @@ public:
 
   void setRoot(string root);
 
-
-
+  void moveIndexes();
+  double getSamples();
+  void generateNoise(int voiceNum, double noiseLength);
 
 private:
   double samplerate;
@@ -31,6 +33,7 @@ private:
   int voice;
   int maxVoices;
   double rootPitch;
+  vector<Karplusstrong*> kps;
   vector<double> voicePitch;
   vector<double> voiceLength;
 };
