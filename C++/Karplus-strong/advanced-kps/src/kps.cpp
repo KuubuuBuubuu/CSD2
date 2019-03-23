@@ -50,11 +50,10 @@ Karplusstrong::Karplusstrong(int inputLength, string fileLocation, double sample
   while(inFile >> fileInput){
       lowerBound = stod(fileInput) - 20;
       upperBound = stod(fileInput) + 20;
-      tapAmount = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / ((lowerBound + 1000) / 2.0));
+      tapAmount = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / (lowerBound / 2.0));
       filter.push_back(new Filter(BPF, tapAmount, samplerate, lowerBound, upperBound));
   }
   inFile.close();
-  cout<<filter.size();
 }
 
 Karplusstrong::~Karplusstrong() {
@@ -77,15 +76,12 @@ void Karplusstrong::generateNoise(int inputLength) {
 double Karplusstrong::getSample() {
   double sampleDelay = 0;
   iMod = indexNumber % inputLength;
-  if(indexNumber >= inputLength && outputArray[iMod] > 0.001) {
+  if(indexNumber >= inputLength) {
     for(long long unsigned int i = 0; i < filter.size(); i++){
-      sampleDelay += filter[i]->do_sample(outputArray[iMod]) * 30.0;
+      sampleDelay += filter[i]->do_sample(outputArray[iMod]);
     }
     outputArray[iMod] = (sampleDelay / (double) filter.size()) * feedback;
   } //if
-  if(outputArray[iMod] < 0.001){
-    outputArray[iMod] = 0.0;
-  }
 
   return outputArray[iMod];
 } //getSample
