@@ -24,20 +24,13 @@ int main(int argc, char **argv)
   //~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   // init the jack, use program name as JACK client name
-  jack.init("Karplus Strong [ALPHA]");
+  jack.init("Karplus Strong [BETA]");
   double samplerate = jack.getSamplerate();
-  VoiceManager voice(6, samplerate, "c");
-
-  //Karplusstrong kps1(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-  //Karplusstrong kps2(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-  //Karplusstrong kps3(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-//  Karplusstrong kps4(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-//  Karplusstrong kps5(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
-//  Karplusstrong kps6(220, 5000, samplerate, 0.98); //Initiate the kps1, see 'kps.h' for more info
+  VoiceManager voice(20, samplerate);
 
   jack.onProcess = [&voice](jack_default_audio_sample_t *inBuf,
                                     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
-    static double amplitude = 0.9;
+    static double amplitude = 1.0;
     for (unsigned int i = 0; i < nframes; i++)
     {
       // write sine output * amplitude --> to output buffer
@@ -48,9 +41,6 @@ int main(int argc, char **argv)
   };
 
   jack.autoConnect();
-
-  std::cout << "\n\nPress SPACE to make sound.\n";
-  std::cout << "Press 'q' when you want to quit the program.\n";
 
   bool running = true;
   bool isPressedq = false;
@@ -66,7 +56,16 @@ int main(int argc, char **argv)
   bool isPressed7 = false;
   bool isPressedu = false;
   bool isPressedi = false;
+  bool isPressedUp = false;
+  bool isPressedDown = false;
+  bool isPressedRight = false;
+  bool isPressedLeft = false;
 
+  cout << "Generic Physical Modelling Synthesizer :D\n\n"
+  << "You can now play with the QWERTYUI + 23 567 keys.\n"
+  << "Press UP to increase the octave.\nPress DOWN to decrease the octave.\n"
+  << "Press LEFT to transpose down. \nPress RIGHT to transpose up.\n"
+  << "Press BACKSPACE to quit." << endl;
 
   while(running) {
     if(GetAsyncKeyState('Q') < 0 && isPressedq == false) {
@@ -215,6 +214,38 @@ int main(int argc, char **argv)
     else if(GetAsyncKeyState('I') == 0 && isPressedi == true) {
       voice.removeVoice();
       isPressedi = false;
+    }
+
+    if(GetKeyState(VK_UP) & 0x8000 && isPressedUp == false) {
+      voice.increaseOctave();
+      isPressedUp = true;
+    }
+    else if(GetAsyncKeyState(VK_UP) == 0 && isPressedUp == true) {
+      isPressedUp = false;
+    }
+
+    if(GetAsyncKeyState(VK_DOWN) & 0x8000 && isPressedDown == false) {
+      voice.decreaseOctave();
+      isPressedDown = true;
+    }
+    else if(GetAsyncKeyState(VK_DOWN) == 0 && isPressedDown == true) {
+      isPressedDown = false;
+    }
+
+    if(GetAsyncKeyState(VK_RIGHT) & 0x8000 && isPressedRight == false) {
+      voice.transposeUp();
+      isPressedRight = true;
+    }
+    else if(GetAsyncKeyState(VK_RIGHT) == 0 && isPressedRight == true) {
+      isPressedRight = false;
+    }
+
+    if(GetAsyncKeyState(VK_LEFT) & 0x8000 && isPressedLeft == false) {
+      voice.transposeDown();
+      isPressedLeft = true;
+    }
+    else if(GetAsyncKeyState(VK_LEFT) == 0 && isPressedLeft == true) {
+      isPressedLeft = false;
     }
 
 

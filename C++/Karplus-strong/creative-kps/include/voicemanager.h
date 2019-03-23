@@ -9,12 +9,13 @@ using namespace std;
 
 class VoiceManager {
 public:
-  VoiceManager(int maxVoices, double samplerate, string root);
+  VoiceManager(int maxVoices, double samplerate);
   ~VoiceManager();
 
   void addVoice();
   void removeVoice();
   int getVoice();
+  int getMaxVoices();
 
   void setPitch(int semitones);
   double getPitch();
@@ -26,6 +27,11 @@ public:
   void moveIndexes();
   double getSamples();
   void generateNoise(int voiceNum, double noiseLength);
+
+  void increaseOctave();
+  void decreaseOctave();
+  void transposeUp();
+  void transposeDown();
 
 private:
   double samplerate;

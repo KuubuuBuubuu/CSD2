@@ -3,51 +3,18 @@
 
 using namespace std;
 
-VoiceManager::VoiceManager(int maxVoices, double samplerate, string root) {
+VoiceManager::VoiceManager(int maxVoices, double samplerate) {
   this->maxVoices = maxVoices;
   this->samplerate = samplerate;
+  this->rootPitch = 220 * pow(2, 3/12.0);
   kps.resize(maxVoices);
   for(int i=0; i < maxVoices; i++) {
     kps[i] = new Karplusstrong(220, 5000, samplerate, 0.98);
   }
   voicePitch.resize(maxVoices);
   voiceLength.resize(maxVoices);
-  if(root=="a") {
-    this->rootPitch = 220 * pow(2, 0/12.0);
-  }
-  else if(root=="ais" || root=="bes") {
-    this->rootPitch = 220 * pow(2, 1/12.0);
-  }
-  else if(root=="b") {
-    this->rootPitch = 220 * pow(2, 2/12.0);
-  }
-  else if(root=="c") {
-    this->rootPitch = 220 * pow(2, 3/12.0);
-  }
-  else if(root=="cis" || root=="des") {
-    this->rootPitch = 220 * pow(2, 4/12.0);
-  }
-  else if(root=="d") {
-    this->rootPitch = 220 * pow(2, 5/12.0);
-  }
-  else if(root=="dis" || root=="es") {
-    this->rootPitch = 220 * pow(2, 6/12.0);
-  }
-  else if(root=="e") {
-    this->rootPitch = 220 * pow(2, 7/12.0);
-  }
-  else if(root=="f") {
-    this->rootPitch = 220 * pow(2, 8/12.0);
-  }
-  else if(root=="fis" || root=="ges") {
-    this->rootPitch = 220 * pow(2, 9/12.0);
-  }
-  else if(root=="g") {
-    this->rootPitch = 220 * pow(2, 10/12.0);
-  }
-  else if(root=="gis" || root=="as") {
-    this->rootPitch = 220 * pow(2, 11/12.0);
-  }
+
+
 }
 
 VoiceManager::~VoiceManager() {
@@ -69,6 +36,10 @@ void VoiceManager::removeVoice() {
 
 int VoiceManager::getVoice() {
   return currentVoice;
+}
+
+int VoiceManager::getMaxVoices() {
+  return maxVoices;
 }
 
 void VoiceManager::setPitch(int semitones) {
@@ -93,11 +64,29 @@ void VoiceManager::moveIndexes() {
 double VoiceManager::getSamples() {
   double sample;
   for(int i=0; i < maxVoices; i++) {
-    sample += kps[i]->getSample();
+    sample += kps[i]->getSample() / 3.0;
   }
-  return sample = sample / maxVoices;
+  return sample;
 }
 
 void VoiceManager::generateNoise(int voiceNum, double noiseLength) {
   kps[voiceNum]->generateNoise(noiseLength);
+}
+
+void VoiceManager::increaseOctave() {
+  rootPitch *= 2.0;
+  //cout << "rootPitch: " << rootPitch << endl;
+}
+
+void VoiceManager::decreaseOctave() {
+  rootPitch /= 2.0;
+  //cout << "rootPitch: " << rootPitch << endl;
+  }
+
+void VoiceManager::transposeUp() {
+  rootPitch *= pow(2, 1/12.0);
+}
+
+void VoiceManager::transposeDown() {
+  rootPitch *= pow(2, -1/12.0);
 }

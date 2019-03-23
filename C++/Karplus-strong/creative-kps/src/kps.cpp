@@ -25,12 +25,12 @@ Karplusstrong::Karplusstrong(double inputLength, double cutoff_frequency, double
 Karplusstrong::~Karplusstrong() {
   delete noiseptr;
   delete lowpassfilter;
-  cout << "Karplusstrong deconstructed." << endl;
+  //cout << "Karplusstrong deconstructed." << endl;
 } //destructor
 
 void Karplusstrong::generateNoise(double inputLength) {
   this->inputLength = inputLength;
-  cout << "inputLength: " << inputLength << endl;
+  //cout << "inputLength: " << inputLength << endl;
   outputArray.resize((int)inputLength);
   for(int i = 0; i < (int)outputArray.size(); i++) {
     outputArray[i] = noiseptr->getSample();
