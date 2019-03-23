@@ -64,7 +64,7 @@ class Karplusstrong
 {
 public:
   Karplusstrong(int inputLength, double cutoff_frequency, double samplerate, double feedback);
-  Karplusstrong(int inputLength, string fileLocation, double samplerate, double feedback);
+  Karplusstrong(int inputLength, string fileLocation, double samplerate, double feedback, int test);
   ~Karplusstrong();
 
   double getSample();
@@ -73,13 +73,15 @@ public:
 
 private:
   int inputLength;
-  double *outputArray;
+  vector<double> outputArray;
   Noise *noiseptr;
   vector<Filter*> filter;
   int indexNumber = 0;
   double feedback;
   int iMod;
   double tapAmount;
+  double tapAmountL;
+  double tapAmountU;
   string fileInput;
   ifstream inFile;
 };

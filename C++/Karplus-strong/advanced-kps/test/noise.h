@@ -16,7 +16,8 @@ class Noise : public Oscillator {
 
   private:
     double tapAmount;  
-    Filter *myFilter;
+    Filter *hpF;
+    Filter *lpF;
 };
 
 #endif

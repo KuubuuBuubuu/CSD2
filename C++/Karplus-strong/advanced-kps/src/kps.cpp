@@ -7,7 +7,7 @@ Karplusstrong::Karplusstrong(int inputLength, double cutoff_frequency, double sa
 
   //Convert the input in ms to length in samples:
   inputLength = (samplerate / 1000) * inputLength;
-  outputArray = new double[inputLength];
+  outputArray.resize(inputLength);
 
   this->inputLength = inputLength;
   if(feedback >= 0.99) {
@@ -24,10 +24,10 @@ Karplusstrong::Karplusstrong(int inputLength, double cutoff_frequency, double sa
   filter.push_back(new Filter(LPF, tapAmount, samplerate, cutoff_frequency)); //Initiate the LPF
 } //Constructor
 
-Karplusstrong::Karplusstrong(int inputLength, string fileLocation, double samplerate, double feedback) {
+Karplusstrong::Karplusstrong(int inputLength, string fileLocation, double samplerate, double feedback, int test) {
     //Convert the input in ms to length in samples:
   inputLength = (samplerate / 1000) * inputLength;
-  outputArray = new double[inputLength];
+  outputArray.resize(inputLength);
 
   this->inputLength = inputLength;
   if(feedback >= 0.99) {
@@ -48,17 +48,18 @@ Karplusstrong::Karplusstrong(int inputLength, string fileLocation, double sample
     exit(1);
   }
   while(inFile >> fileInput){
-      lowerBound = stod(fileInput) - 20;
-      upperBound = stod(fileInput) + 20;
-      tapAmount = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / (lowerBound / 2.0));
-      filter.push_back(new Filter(BPF, tapAmount, samplerate, lowerBound, upperBound));
+      lowerBound = stod(fileInput) - 200;
+      upperBound = stod(fileInput) + 200;
+      tapAmountL = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / lowerBound );
+      tapAmountU = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / upperBound);
+      filter.push_back(new Filter(LPF, tapAmountL, samplerate, lowerBound));
+      filter.push_back(new Filter(LPF, tapAmountU, samplerate, upperBound));
   }
   inFile.close();
 }
 
 Karplusstrong::~Karplusstrong() {
   delete noiseptr;
-  delete outputArray;
   for(long long unsigned int i = 0; i < filter.size(); i++){
     delete filter[i];
   }
@@ -66,22 +67,22 @@ Karplusstrong::~Karplusstrong() {
 } //destructor
 
 void Karplusstrong::generateNoise(int inputLength) {
-  indexNumber=0;
   for(int i = 0; i < inputLength; i++) {
     outputArray[i] = noiseptr->getSample();
     noiseptr->tick();
+    //cout<<outputArray[i]<<" // ";
   } //forloop
 } //generateNoise
                            
 double Karplusstrong::getSample() {
   double sampleDelay = 0;
   iMod = indexNumber % inputLength;
-  if(indexNumber >= inputLength) {
-    for(long long unsigned int i = 0; i < filter.size(); i++){
-      sampleDelay += filter[i]->do_sample(outputArray[iMod]);
-    }
-    outputArray[iMod] = (sampleDelay / (double) filter.size()) * feedback;
-  } //if
+    // for(long long unsigned int i = 0; i < (filter.size()/2); i+=2){
+    //   sampleDelay += filter[i]->do_sample(outputArray[iMod]);
+    //   sampleDelay -= filter[i+1]->do_sample(outputArray[iMod]);
+    // }
+    // outputArray[iMod] = (sampleDelay / ((double) filter.size()/2.0)) * feedback;
+    outputArray[iMod] *= feedback;
 
   return outputArray[iMod];
 } //getSample

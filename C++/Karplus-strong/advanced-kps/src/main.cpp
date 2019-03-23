@@ -15,6 +15,7 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
+  srand(time(NULL));
   int length;
   string fileLocation = "./doc/fft_analysis.txt";
   cout << "Please fill in the length in ms of how long the array must be:" << endl;
@@ -34,7 +35,7 @@ int main(int argc, char **argv)
   jack.init("Karplus Strong [ALPHA]");
   double samplerate = jack.getSamplerate();
 
-  Karplusstrong karplusstrong(length, fileLocation, samplerate, 0.99); //Initiate the Karplusstrong, see 'kps.h' for more info
+  Karplusstrong karplusstrong(length, fileLocation, samplerate, 0.99, 0); //Initiate the Karplusstrong, see 'kps.h' for more info
 
   jack.onProcess = [&karplusstrong](jack_default_audio_sample_t *inBuf,
                                     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {

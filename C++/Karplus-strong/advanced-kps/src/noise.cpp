@@ -3,7 +3,7 @@
 using namespace std;
 
 Noise::Noise(double samplerate) : Oscillator(samplerate, 60) {
-    srand(time(NULL));
+    //srand(time(NULL));
     sample = rand() % 1000 / 1000.0;
     cout << "Created a noise" << endl;
 } //constructor
