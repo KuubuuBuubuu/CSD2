@@ -19,6 +19,6 @@ Noise::~Noise() {
 
 void Noise::calculate() {
     sample = rand() % 1000 / 1000.0;
-    sample = lpF->do_sample(sample);
+    //sample = lpF->do_sample(sample);
     sample = sample - hpF->do_sample(sample);
 } //calculate

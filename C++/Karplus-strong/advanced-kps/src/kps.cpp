@@ -48,10 +48,10 @@ Karplusstrong::Karplusstrong(int inputLength, string fileLocation, double sample
     exit(1);
   }
   while(inFile >> fileInput){
-      lowerBound = stod(fileInput) - 200;
-      upperBound = stod(fileInput) + 200;
-      tapAmountL = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / lowerBound );
-      tapAmountU = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / upperBound);
+      lowerBound = stod(fileInput) - 100;
+      upperBound = stod(fileInput) + 100;
+      tapAmountL = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / (lowerBound / 2.0));
+      tapAmountU = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / (upperBound / 2.0));
       filter.push_back(new Filter(LPF, tapAmountL, samplerate, lowerBound));
       filter.push_back(new Filter(LPF, tapAmountU, samplerate, upperBound));
   }
@@ -67,22 +67,24 @@ Karplusstrong::~Karplusstrong() {
 } //destructor
 
 void Karplusstrong::generateNoise(int inputLength) {
-  for(int i = 0; i < inputLength; i++) {
+  //this->inputLength=inputLength;
+  for(int i = 0; i < this->inputLength; i++) {
     outputArray[i] = noiseptr->getSample();
     noiseptr->tick();
-    //cout<<outputArray[i]<<" // ";
   } //forloop
 } //generateNoise
                            
 double Karplusstrong::getSample() {
   double sampleDelay = 0;
-  iMod = indexNumber % inputLength;
-    // for(long long unsigned int i = 0; i < (filter.size()/2); i+=2){
-    //   sampleDelay += filter[i]->do_sample(outputArray[iMod]);
-    //   sampleDelay -= filter[i+1]->do_sample(outputArray[iMod]);
-    // }
+  double sampleStorage = 0;
+  iMod = indexNumber % this->inputLength;
+    for(long long unsigned int i = 0; i < filter.size(); i+=2){
+      sampleDelay = filter[i]->do_sample(outputArray[iMod]);
+      sampleDelay = sampleDelay - filter[i+1]->do_sample(sampleDelay);
+      sampleStorage+=sampleDelay;
+    }
     // outputArray[iMod] = (sampleDelay / ((double) filter.size()/2.0)) * feedback;
-    outputArray[iMod] *= feedback;
+    outputArray[iMod] = (sampleStorage / ((double) filter.size()/2.0));
 
   return outputArray[iMod];
 } //getSample
