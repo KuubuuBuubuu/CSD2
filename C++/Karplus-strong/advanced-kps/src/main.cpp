@@ -39,7 +39,7 @@ int main(int argc, char **argv)
 
   jack.onProcess = [&karplusstrong](jack_default_audio_sample_t *inBuf,
                                     jack_default_audio_sample_t *outBuf, jack_nframes_t nframes) {
-    static double amplitude = 0.7;
+    static double amplitude = 0.5;
     for (unsigned int i = 0; i < nframes; i++)
     {
       // write sine output * amplitude --> to output buffer

@@ -82,8 +82,14 @@ private:
   double tapAmount;
   double tapAmountL;
   double tapAmountU;
-  string fileInput;
+  double fileInput;
   ifstream inFile;
+  
+  double upperBound;
+  double lowerBound;
+  double prevFreq = 0;
+  string dataEntry;
+  bool start = true;
 };
 
 #endif
