@@ -17,7 +17,6 @@ Karplusstrong::Karplusstrong(int inputLength, double cutoff_frequency, double sa
   noiseptr = new Noise(samplerate);
 
   // initialize the white-noise array.
-  generateNoise(inputLength);
 
   //Calculate the best amount of taps for the given frequency.
   tapAmount = ((2.0 / 3.0) * log10(10 ^ 9)) * (samplerate / (cutoff_frequency / 2.0));
@@ -25,11 +24,11 @@ Karplusstrong::Karplusstrong(int inputLength, double cutoff_frequency, double sa
 } //Constructor
 
 Karplusstrong::Karplusstrong(int inputLength, string fileLocation, double samplerate, double feedback, int test) {
-    //Convert the input in ms to length in samples:
+  //Convert the input in ms to length in samples:
   inputLength = (samplerate / 1000) * inputLength;
   outputArray.resize(inputLength);
-
   this->inputLength = inputLength;
+
   if(feedback >= 0.99) {
     feedback = 0.98;
   } //if
@@ -37,7 +36,6 @@ Karplusstrong::Karplusstrong(int inputLength, string fileLocation, double sample
   noiseptr = new Noise(samplerate);
 
   // initialize the white-noise array.
-  generateNoise(inputLength);
 
   double upperBound;
   double lowerBound;
@@ -67,15 +65,14 @@ Karplusstrong::~Karplusstrong() {
 } //destructor
 
 void Karplusstrong::generateNoise(int inputLength) {
-  for(int i = 0; i < inputLength; i++) {
+  for(int i = 0; i < outputArray.size(); i++) {
     outputArray[i] = noiseptr->getSample();
     noiseptr->tick();
-    //cout<<outputArray[i]<<" // ";
   } //forloop
 } //generateNoise
-                           
+
 double Karplusstrong::getSample() {
-  double sampleDelay = 0;
+  //double sampleDelay = 0;
   iMod = indexNumber % inputLength;
     // for(long long unsigned int i = 0; i < (filter.size()/2); i+=2){
     //   sampleDelay += filter[i]->do_sample(outputArray[iMod]);

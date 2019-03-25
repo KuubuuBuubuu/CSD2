@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 {
   srand(time(NULL));
   int length;
-  string fileLocation = "./doc/fft_analysis.txt";
+  string fileLocation = "../doc/fft_analysis.txt";
   cout << "Please fill in the length in ms of how long the array must be:" << endl;
   cin >> length;
   // cout << "What is the relative path to the settings file?"<<endl;
