@@ -19,7 +19,7 @@ If you open the .exe file (or .app for Mac or the Linux file) you start in the *
 * **_Epicness:_**
 Controls how deep and masculine your voice sounds. Varies from the dull real voice to a world full of explosions and stuff!
 
-* **_Spaceyness: _**
+* **_Spaceyness:_**
 Makes your voice float into space! Varies from your real room acoustics to being on some -probably illegal- pharmaceutics. Perfect if you need wayyyy too much depth!
 
 * Robotifier:
