@@ -16,19 +16,19 @@ Open the .jucer file included in this folder, and build from there.
 ## Usage
 If you open the .exe file (or .app for Mac or the Linux file) you start in the **Simple Mode**. Here you have 4 dials:
 
-* **_Epicness_**
-⋅⋅⋅Controls how deep and masculine your voice sounds. Varies from the dull real voice to a world full of explosions and stuff!⋅⋅
+* **_Epicness:_**
+Controls how deep and masculine your voice sounds. Varies from the dull real voice to a world full of explosions and stuff!
 
-* **_Spaceyness_**
-⋅⋅⋅Makes your voice float into space! Varies from your real room acoustics to being on some -probably illegal- pharmaceutics. Perfect if you need wayyyy too much depth!⋅⋅
+* **_Spaceyness: _**
+Makes your voice float into space! Varies from your real room acoustics to being on some -probably illegal- pharmaceutics. Perfect if you need wayyyy too much depth!
 
-* Robotifier
-⋅⋅⋅This is for when you want to become the next T-Pain! Gives your voice perfect autotuned pitch in the key of C Major! (This dial is a placeholder; it's effect will be added in a later update)⋅⋅
+* Robotifier:
+This is for when you want to become the next T-Pain! Gives your voice perfect autotuned pitch in the key of C Major! (This dial is a placeholder; it's effect will be added in a later update)
 
-* Pitch
-⋅⋅⋅ Changes your voice's pitch from very low to very high (This dial is also a placeholder, whose effect will be added in a later update.)⋅⋅
+* Pitch:
+Changes your voice's pitch from very low to very high (This dial is also a placeholder, whose effect will be added in a later update.)
 
-*If you want to have more control over your effects, you can check the advanced tickbox in the upper right corner.*
+*(If you want to have more control over your effects, you can check the advanced tickbox in the upper right corner.)*
 
 ## What's Working?
 - Compressor;
