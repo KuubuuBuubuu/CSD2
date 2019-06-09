@@ -28,7 +28,8 @@ This is for when you want to become the next T-Pain! Gives your voice perfect au
 * Pitch:
 Changes your voice's pitch from very low to very high (This dial is also a placeholder, whose effect will be added in a later update.)
 
-*(If you want to have more control over your effects, you can check the advanced tickbox in the upper right corner.)*
+*(If you want to have more control over your effects, you can check the advanced tickbox in the upper right corner.*
+*Usage may glitch your audio; Use at your own peril.)*
 
 ## What's Working?
 - Compressor;
