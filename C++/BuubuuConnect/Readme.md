@@ -19,11 +19,7 @@ If you open the .exe file (or .app for Mac or the Linux file) you start in the *
 * **_Epicness:_**
 Controls how deep and masculine your voice sounds. Varies from the dull real voice to a world full of explosions and stuff!
 
-<<<<<<< HEAD
-* **_Spaceyness: _**
-=======
 * **_Spaceyness:_**
->>>>>>> 5b6d054d19c844433023f4bc2fbfbaef54ea7409
 Makes your voice float into space! Varies from your real room acoustics to being on some -probably illegal- pharmaceutics. Perfect if you need wayyyy too much depth!
 
 * Robotifier:
@@ -32,12 +28,8 @@ This is for when you want to become the next T-Pain! Gives your voice perfect au
 * Pitch:
 Changes your voice's pitch from very low to very high (This dial is also a placeholder, whose effect will be added in a later update.)
 
-<<<<<<< HEAD
-*(If you want to have more control over your effects, you can check the advanced tickbox in the upper right corner.)*
-=======
 *(If you want to have more control over your effects, you can check the advanced tickbox in the upper right corner.*
 *Usage may glitch your audio; Use at your own peril.)*
->>>>>>> 5b6d054d19c844433023f4bc2fbfbaef54ea7409
 
 ## What's Working?
 - Compressor;
